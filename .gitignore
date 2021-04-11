@@ -1,0 +1,11 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+/WKExampleApp/.vs
+/WKExampleApp/WKExample.Domain/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Domain/obj
+/WKExampleApp/WKExample.Api/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Api/obj
+/WKExampleApp/WKExample.Application/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Application/obj
+/WKExampleApp/WKExample.Infrastructure/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Infrastructure/obj
