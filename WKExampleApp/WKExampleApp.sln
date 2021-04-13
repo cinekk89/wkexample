@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WKExample.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WKExample.Domain", "WKExample.Domain\WKExample.Domain.csproj", "{15BB830A-2259-46C6-BC00-B4B8AF121A9D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WKExample.Shared", "WKExample.Shared\WKExample.Shared.csproj", "{CEEB817B-30A4-4BBD-9AE6-1A3854D6CFF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WKExample.Domain.Tests", "WKExample.Domain.Tests\WKExample.Domain.Tests.csproj", "{157A3DC1-43A0-41FA-A982-E56716D64052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{15BB830A-2259-46C6-BC00-B4B8AF121A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15BB830A-2259-46C6-BC00-B4B8AF121A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15BB830A-2259-46C6-BC00-B4B8AF121A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEEB817B-30A4-4BBD-9AE6-1A3854D6CFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEB817B-30A4-4BBD-9AE6-1A3854D6CFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEB817B-30A4-4BBD-9AE6-1A3854D6CFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEB817B-30A4-4BBD-9AE6-1A3854D6CFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157A3DC1-43A0-41FA-A982-E56716D64052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157A3DC1-43A0-41FA-A982-E56716D64052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157A3DC1-43A0-41FA-A982-E56716D64052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157A3DC1-43A0-41FA-A982-E56716D64052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

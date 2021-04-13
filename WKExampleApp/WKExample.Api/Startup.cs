@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using WKExample.Api.Middlewares;
+using WKExample.Application.Commands.Handlers;
+using WKExample.Infrastructure;
+using WKExample.Infrastructure.Queries.Handlers;
+using WKExample.Shared.Providers;
 
 namespace WKExample.Api
 {
@@ -22,19 +22,23 @@ namespace WKExample.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddMediatR(typeof(GetAllEmployeesHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CreateEmployeeHandler).GetTypeInfo().Assembly);
+            services.AddInfrastructure();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.AddErrorHandler();
 
             app.UseHttpsRedirection();
 

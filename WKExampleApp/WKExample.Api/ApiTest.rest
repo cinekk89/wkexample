@@ -1,0 +1,33 @@
+@url = http://localhost:64000/employees
+@employeeId = 1f084294-cab9-4ada-b630-24b2f2de4fbc
+@employeeToDeleteId = 139c1cec-5374-4aa0-9eb4-df9699f526dc
+GET {{url}}
+
+# GET  {{url}}/{{employeeId}}
+
+# POST {{url}}
+# content-type: application/json
+
+# {
+#     "lastName": "Smaliński",
+#     "firstName": "Dariusz",
+#     "secondName": "Andrzej",
+#     "dateOfBirth": "2001-04-03",
+#     "pesel": "65232487",
+#     "gender": "Male"
+# }
+
+# PUT {{url}}
+# content-type: application/json
+
+# {
+#     "id": "139c1cec-5374-4aa0-9eb4-df9699f526dc",
+#     "lastName": "Smaliński",
+#     "firstName": "Dariusz",
+#     "secondName": "Mariusz",
+#     "dateOfBirth": "2001-01-01",
+#     "pesel": "44232487",
+#     "gender": "Female"
+# }
+
+DELETE {{url}}/{{employeeToDeleteId}}

@@ -9,3 +9,7 @@
 /WKExampleApp/WKExample.Application/obj
 /WKExampleApp/WKExample.Infrastructure/bin/Debug/netcoreapp3.1
 /WKExampleApp/WKExample.Infrastructure/obj
+/WKExampleApp/WKExample.Domain.Tests/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Domain.Tests/obj
+/WKExampleApp/WKExample.Shared/bin/Debug/netcoreapp3.1
+/WKExampleApp/WKExample.Shared/obj
