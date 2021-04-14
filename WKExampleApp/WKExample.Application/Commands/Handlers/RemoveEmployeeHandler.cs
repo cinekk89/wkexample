@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using WKExample.Domain.Exceptions;
+using WKExample.Domain.Exceptions.Employee;
 using WKExample.Domain.Repositories;
 
 namespace WKExample.Application.Commands.Handlers

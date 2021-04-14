@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WKExample.Application.DTOs;
 using WKExample.Application.Queries;
-using WKExample.Domain.Exceptions;
+using WKExample.Domain.Exceptions.Employee;
 using WKExample.Domain.Repositories;
 
 namespace WKExample.Infrastructure.Queries.Handlers

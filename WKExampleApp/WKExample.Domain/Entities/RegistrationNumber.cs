@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WKExample.Domain.Exceptions.RegistrationNumber;
 
 namespace WKExample.Domain.Entities
 {
-    public sealed class RegistrationNumber
+    public class RegistrationNumber
     {
-        private const int SecondPartLength = 6;
-        private const char DefaultSecondPartFiller = '0';
+        protected const int SecondPartLength = 6;
+        protected const char DefaultSecondPartFiller = '0';
 
         public string FirstPart => "1-";
         public string SecondPart { get; private set; }
 
-        private RegistrationNumber()
+        protected RegistrationNumber()
         {
         }
 
@@ -28,38 +29,14 @@ namespace WKExample.Domain.Entities
             return registrationNumber;
         }
 
-        public HashSet<RegistrationNumber> Generator() // todo do wywalenia
+
+
+        public override string ToString()
         {
-            var allNumbers = new HashSet<RegistrationNumber>();
-
-            for (var i = 1; i < 1000000; i++)
-            {
-                if (i == 10059)
-                    continue;
-
-                allNumbers.Add(new RegistrationNumber(i.ToString().PadLeft(SecondPartLength, DefaultSecondPartFiller)));
-            }
-
-            return allNumbers;
+            return FirstPart + SecondPart;
         }
 
-        public void SetSecondPart(string registrationNumber)
-        {
-            if (!string.IsNullOrWhiteSpace(SecondPart))
-            {
-                throw new ArgumentException("Registration number is already set and cannot be edited."); //todo change to domain exceptions
-            }
-
-            var secondPart = registrationNumber.Replace(FirstPart, string.Empty);
-            if (secondPart.Length != SecondPartLength || !Int32.TryParse(secondPart, out var number))
-            {
-                throw new ArgumentException("Wrong registration number's second part");
-            }
-
-            SecondPart = secondPart;
-        }
-
-        public void SetNewNumber(IEnumerable<RegistrationNumber> unavailableRegistrationNumbers)
+        private void SetNewNumber(IEnumerable<RegistrationNumber> unavailableRegistrationNumbers)
         {
             var currentMaxNumber = unavailableRegistrationNumbers.Select(n => Int32.Parse(n.SecondPart)).Max();
             var newSecondPartNumber = ++currentMaxNumber;
@@ -69,22 +46,27 @@ namespace WKExample.Domain.Entities
                 newSecondPartNumber = GetFirstAvailableNumber(unavailableRegistrationNumbers);
                 if (!IsSecondPartNumberValid(newSecondPartNumber))
                 {
-                    throw new ArgumentException("Second part of registration number reached maximum value.");
+                    throw new RegistrationNumbersReachedMaxException();
                 }
             }
 
             SecondPart = FillSecondPart(newSecondPartNumber);
         }
 
-        public override string ToString()
+        private void SetSecondPart(string registrationNumber)
         {
-            return FirstPart + SecondPart;
-        }
+            if (!string.IsNullOrWhiteSpace(SecondPart))
+            {
+                throw new CannotUpdateRegistrationNumberException();
+            }
 
-        private bool IsSecondPartNumberValid(int number)
-        {
-            var numberLength = number.ToString().Length;
-            return number > 0 && numberLength <= SecondPartLength;
+            var secondPart = registrationNumber?.Replace(FirstPart, string.Empty);
+            if (string.IsNullOrWhiteSpace(registrationNumber) || !registrationNumber.StartsWith(FirstPart) || secondPart.Length != SecondPartLength || !Int32.TryParse(secondPart, out _))
+            {
+                throw new IncorrectRegistrationNumberSecondPartException();
+            }
+
+            SecondPart = secondPart;
         }
 
         private int GetFirstAvailableNumber(IEnumerable<RegistrationNumber> existingRegistrationNumbers)
@@ -97,6 +79,12 @@ namespace WKExample.Domain.Entities
             numbersInRange.ExceptWith(secondPartUnavailableNumbers);
 
             return numbersInRange.Any() ? numbersInRange.Min() : 0;
+        }
+
+        private bool IsSecondPartNumberValid(int number)
+        {
+            var numberLength = number.ToString().Length;
+            return number > 0 && numberLength <= SecondPartLength;
         }
 
         private static string FillSecondPart(int secondPartNumber)

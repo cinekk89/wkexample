@@ -1,7 +1,7 @@
 ﻿using System;
 using WKExample.Shared.Exceptions;
 
-namespace WKExample.Domain.Exceptions
+namespace WKExample.Domain.Exceptions.Employee
 {
     public class EmployeeNotFoundException : WKDomainException
     {

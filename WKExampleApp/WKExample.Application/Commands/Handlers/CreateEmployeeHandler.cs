@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WKExample.Domain.Entities;
-using WKExample.Domain.Exceptions;
+using WKExample.Domain.Exceptions.Employee;
 using WKExample.Domain.Repositories;
 using WKExample.Shared.Providers;
 

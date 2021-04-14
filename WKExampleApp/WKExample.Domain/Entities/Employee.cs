@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using WKExample.Domain.Consts;
-using WKExample.Domain.Exceptions;
+using WKExample.Domain.Exceptions.Employee;
 using WKExample.Domain.Kernel;
 
 namespace WKExample.Domain.Entities
@@ -27,8 +26,8 @@ namespace WKExample.Domain.Entities
             string gender, DateTime now, int version = 0)
         {
             Id = id;
-            RegistrationNumber = registrationNumber;
-            Pesel = pesel;
+            SetRegistrationNumber(registrationNumber);
+            SetPesel(pesel);
             SetDateOfBirth(dateOfBirth, now);
             SetLastName(lastName);
             SetNames(firstName, secondName);
@@ -52,14 +51,15 @@ namespace WKExample.Domain.Entities
             return employee;
         }
 
-        private void SetId()
-        {
-            Id = Guid.NewGuid();
-        }
-
         public void SetPesel(string pesel)
         {
-            if(string.IsNullOrWhiteSpace(pesel) || pesel.Length < 11)
+            /*1.creating proper validation for Pesel is bigger than the whole task itself,
+              2.using third-party library (like https://github.com/asienicki/PESEL) in domain is not a good solution
+              3.copy/past validation from this library and than UT it (test are also included in library) would make no sense
+              for the purposes of this task
+              
+              That's why I leave it with this simple validation and as a primitive type instead of Value Object*/
+            if (string.IsNullOrWhiteSpace(pesel) || pesel.Length != 11 || !Int64.TryParse(pesel, out _))
             {
                 throw new IncorrectEmployeePeselException(pesel);
             }
@@ -71,20 +71,21 @@ namespace WKExample.Domain.Entities
         {
             const int maxNameLength = 25;
 
+            if (string.IsNullOrWhiteSpace(secondName))
+                secondName = null;
+
             if (string.IsNullOrWhiteSpace(firstName) || firstName.Length > maxNameLength)
             {
                 throw new WrongEmployeeNamesException();
             }
 
-            if(!string.IsNullOrWhiteSpace(secondName) && secondName.Length > maxNameLength)
+            if (!string.IsNullOrWhiteSpace(secondName) && secondName.Length > maxNameLength)
             {
                 throw new WrongEmployeeNamesException();
             }
 
             FirstName = firstName;
             SecondName = secondName;
-
-            IncrementVersion();
         }
 
         public void SetLastName(string lastName)
@@ -97,20 +98,16 @@ namespace WKExample.Domain.Entities
             }
 
             LastName = lastName;
-
-            IncrementVersion();
         }
 
         public void SetDateOfBirth(DateTime dateOfBirth, DateTime now)
         {
-            if(dateOfBirth == DateTime.MinValue || dateOfBirth > now)
+            if (dateOfBirth == DateTime.MinValue || dateOfBirth >= now)
             {
                 throw new WrongEmployeeDateOfBirthException();
             }
 
             DateOfBirth = dateOfBirth;
-            
-            IncrementVersion();
         }
 
         public void SetGender(string gender)
@@ -121,8 +118,21 @@ namespace WKExample.Domain.Entities
             }
 
             Gender = gender;
+        }
 
-            IncrementVersion();
+        private void SetId()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        private void SetRegistrationNumber(RegistrationNumber registrationNumber)
+        {
+            if (registrationNumber is null)
+            {
+                throw new EmptyRegistrationNumberException();
+            }
+
+            RegistrationNumber = registrationNumber;
         }
     }
 }
