@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WKExample.Domain.Entities;
 using WKExample.Domain.Repositories;
@@ -24,14 +23,16 @@ namespace WKExample.Infrastructure.Repositories
             await Task.FromResult(true);
         }
 
-        public IEnumerable<Employee> Get()
+        public async Task<IEnumerable<Employee>> Get()
         {
-            return _employees;
+            return await Task.FromResult(_employees);
         }
 
-        public Employee Get(Guid id)
+        public async Task<Employee> Get(Guid id)
         {
-            return Get().SingleOrDefault(e => e.Id == id);
+            var employees = await Get();
+
+            return employees.SingleOrDefault(e => e.Id == id);
         }
 
         public async Task Remove(Guid id)

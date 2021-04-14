@@ -20,9 +20,9 @@ namespace WKExample.Infrastructure.Queries.Handlers
 
         public async Task<IEnumerable<EmployeeDto>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)
         {
-            var employees = _employeeRepository.Get();
+            var employees = await _employeeRepository.Get();
 
-            return await Task.FromResult(employees.Select(e => new EmployeeDto
+            return employees.Select(e => new EmployeeDto
             {
                 Id = e.Id,
                 RegistrationNumber = e.RegistrationNumber.ToString(),
@@ -32,7 +32,7 @@ namespace WKExample.Infrastructure.Queries.Handlers
                 SecondName = e.SecondName,
                 DateOfBirth = e.DateOfBirth,
                 Gender = e.Gender,
-            }));
+            });
         }
     }
 }

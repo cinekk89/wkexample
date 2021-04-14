@@ -19,14 +19,14 @@ namespace WKExample.Infrastructure.Queries.Handlers
 
         public async Task<EmployeeDto> Handle(GetEmployeeQuery request, CancellationToken cancellationToken)
         {
-            var employee = _employeeRepository.Get(request.Id);
+            var employee = await _employeeRepository.Get(request.Id);
 
             if (employee is null)
             {
                 throw new EmployeeNotFoundException(request.Id);
             }
 
-            return await Task.FromResult(new EmployeeDto
+            return new EmployeeDto
             {
                 Id = employee.Id,
                 RegistrationNumber = employee.RegistrationNumber.ToString(),
@@ -36,7 +36,7 @@ namespace WKExample.Infrastructure.Queries.Handlers
                 SecondName = employee.SecondName,
                 DateOfBirth = employee.DateOfBirth,
                 Gender = employee.Gender,
-            });
+            };
         }
     }
 }

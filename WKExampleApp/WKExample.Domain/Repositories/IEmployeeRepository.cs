@@ -7,8 +7,8 @@ namespace WKExample.Domain.Repositories
 {
     public interface IEmployeeRepository
     {
-        public IEnumerable<Employee> Get();
-        public Employee Get(Guid id);
+        public Task<IEnumerable<Employee>> Get();
+        public Task<Employee> Get(Guid id);
         public Task Add(Employee employee);
         public Task Update(Guid id, Employee employee);
         public Task Remove(Guid id);

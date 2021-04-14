@@ -20,7 +20,7 @@ namespace WKExample.Application.Commands.Handlers
 
         public async Task Handle(UpdateEmployeeCommand notification, CancellationToken cancellationToken)
         {
-            var employeeToUpdate = _employeeRepository.Get(notification.Id);
+            var employeeToUpdate = await _employeeRepository.Get(notification.Id);
             if (employeeToUpdate is null)
             {
                 throw new EmployeeNotFoundException(notification.Id);

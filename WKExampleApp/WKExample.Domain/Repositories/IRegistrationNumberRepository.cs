@@ -6,7 +6,7 @@ namespace WKExample.Domain.Repositories
 {
     public interface IRegistrationNumberRepository
     {
-        public IEnumerable<RegistrationNumber> Get();
-        public bool IsAvailable(RegistrationNumber registrationNumber);
+        public Task<IEnumerable<RegistrationNumber>> Get();
+        public Task<bool> IsAvailable(RegistrationNumber registrationNumber);
     }
 }

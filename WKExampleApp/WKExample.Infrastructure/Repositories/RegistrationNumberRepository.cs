@@ -15,14 +15,15 @@ namespace WKExample.Infrastructure.Repositories
             this.employeeRepository = employeeRepository;
         }
 
-        public IEnumerable<RegistrationNumber> Get()
+        public async Task<IEnumerable<RegistrationNumber>> Get()
         {
-            return employeeRepository.Get().Select(e => e.RegistrationNumber);
+            var employees = await employeeRepository.Get();
+            return employees.Select(e => e.RegistrationNumber);
         }
 
-        public bool IsAvailable(RegistrationNumber registrationNumber)
+        public async Task<bool> IsAvailable(RegistrationNumber registrationNumber)
         {
-            var unavailableRegistrationNumbers = employeeRepository.Get().Select(e => e.RegistrationNumber);
+            var unavailableRegistrationNumbers = await Get();
             return !unavailableRegistrationNumbers.Any(rn => rn.ToString() == registrationNumber.ToString());
         }
     }

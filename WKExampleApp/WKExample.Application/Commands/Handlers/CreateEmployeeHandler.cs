@@ -24,14 +24,15 @@ namespace WKExample.Application.Commands.Handlers
 
         public async Task Handle(CreateEmployeeCommand notification, CancellationToken cancellationToken)
         {
-            var employee = _employeeRepository.Get()
-                .SingleOrDefault(e => e.Pesel == notification.Pesel);
+            var employees = await _employeeRepository.Get();
+            var employee = employees.SingleOrDefault(e => e.Pesel == notification.Pesel);
+
             if (employee != null)
             {
                 throw new EmployeeWithPeselAlreadyExistsException(notification.Pesel);
             }
 
-            var unavailableRegistrationNumbers = _registrationNumberRepository.Get();
+            var unavailableRegistrationNumbers = await _registrationNumberRepository.Get();
             var newEmployee = Employee.Create(
                 notification.Pesel,
                 notification.DateOfBirth,
@@ -44,6 +45,7 @@ namespace WKExample.Application.Commands.Handlers
                 );
 
             await _employeeRepository.Add(newEmployee);
+
             //for the future -> place for dispatching aggregateEvents
         }
     }

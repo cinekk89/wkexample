@@ -1,6 +1,8 @@
 @url = http://localhost:64000/employees
-@employeeId = 1f084294-cab9-4ada-b630-24b2f2de4fbc
-@employeeToDeleteId = 139c1cec-5374-4aa0-9eb4-df9699f526dc
+@employeeId = b3fde8de-e428-40ca-abf5-08a58cdb8f88
+@employeeToDeleteId = 0f481564-be79-476c-84c8-f3bfb05c5f4c
+
+
 GET {{url}}
 
 # GET  {{url}}/{{employeeId}}
@@ -9,11 +11,11 @@ GET {{url}}
 # content-type: application/json
 
 # {
-#     "lastName": "Smaliński",
+#     "lastName": "Kowalski",
 #     "firstName": "Dariusz",
 #     "secondName": "Andrzej",
 #     "dateOfBirth": "2001-04-03",
-#     "pesel": "65232487",
+#     "pesel": "65232487341",
 #     "gender": "Male"
 # }
 
@@ -21,13 +23,13 @@ GET {{url}}
 # content-type: application/json
 
 # {
-#     "id": "139c1cec-5374-4aa0-9eb4-df9699f526dc",
-#     "lastName": "Smaliński",
-#     "firstName": "Dariusz",
+#     "id": "0f481564-be79-476c-84c8-f3bfb05c5f4c",
+#     "lastName": "Kowalsky",
+#     "firstName": "Marek",
 #     "secondName": "Mariusz",
 #     "dateOfBirth": "2001-01-01",
-#     "pesel": "44232487",
+#     "pesel": "97844232487",
 #     "gender": "Female"
 # }
 
-DELETE {{url}}/{{employeeToDeleteId}}
+# DELETE {{url}}/{{employeeToDeleteId}}
